@@ -13,7 +13,7 @@ export default function EvaluatorsSummary({ evaluators }: EvaluatorsSummaryProps
     const contestId = params.contestId || '';
 
     return (
-        <section className="max-w-2xl bg-white p-8 shadow-lg mx-auto my-10">
+        <section className="max-w-2xl bg-white p-5 md:p-8 shadow-lg mx-auto my-10">
             <h2 className="text-2xl font-bold text-gray-600">
                 Evaluadores:
             </h2>
@@ -21,7 +21,7 @@ export default function EvaluatorsSummary({ evaluators }: EvaluatorsSummaryProps
             {evaluators.length > 0 ? (
                 <ul className="my-6 grid grid-cols-1 divide-gray-300 divide-y">
                     {evaluators.map((evaluator, i) => (
-                        <li key={evaluator.id} className="text-gray-600 font-bold px-4 py-2 flex items-center justify-between gap-4">
+                        <li key={evaluator.id} className="text-gray-600 font-bold p-2 flex items-center justify-between gap-4">
                             {i + 1}. {evaluator.name}
                             <span className="text-sm text-gray-400 font-bold">
                                 {evaluator.email}
@@ -45,7 +45,7 @@ export default function EvaluatorsSummary({ evaluators }: EvaluatorsSummaryProps
             )}
 
             {isCreatorOfTheContest && (
-                <Link to={`/dashboard/contests/${contestId}/evaluators`} className="px-4 py-3 bg-cyan-700 hover:bg-cyan-800 text-white font-bold cursor-pointer transition-colors inline-block">
+                <Link to={`/dashboard/contests/${contestId}/evaluators`} className="px-4 py-2 bg-cyan-700 hover:bg-cyan-800 text-white font-bold cursor-pointer transition-colors inline-block">
                     Ver Más
                 </Link>
             )}

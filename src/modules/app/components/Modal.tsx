@@ -33,7 +33,7 @@ export default function Modal({show, onClose, children}: PropsWithChildren<Modal
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-xl transition-all p-8">
+                            <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-lg bg-white text-left align-middle shadow-xl transition-all p-5 md:p-8">
                                 {children}
                             </DialogPanel>
                         </TransitionChild>

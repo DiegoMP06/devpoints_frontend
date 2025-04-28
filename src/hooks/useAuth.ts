@@ -7,10 +7,17 @@ export default function useAuth() {
         isLoading: isAuthLoading,
         error,
         mutate: mutateAuth,
+        error: authError,
     } = useSWR("/user", async () => {
         const user = await AppService.user();
         return user;
     });
 
-    return { user, isAuthLoading, error, mutateAuth };
+    return {
+        user,
+        isAuthLoading,
+        error,
+        mutateAuth,
+        authError: authError as unknown,
+    };
 }

@@ -107,7 +107,7 @@ export default function NewEvaluatorView() {
                 </p>
             )}
 
-            <Link to={`/dashboard/contests/${contestId}/evaluators`} className="inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-4 mt-4">
+            <Link to={`/dashboard/contests/${contestId}/evaluators`} className="inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 mt-4">
                 Volver
             </Link>
         </Modal>

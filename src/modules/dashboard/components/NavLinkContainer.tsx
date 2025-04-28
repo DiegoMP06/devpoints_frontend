@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react";
 
 export default function NavLinkContainer({ children }: PropsWithChildren) {
     return (
-        <div className="mt-8">
+        <div className="mt-6">
             {children}
         </div>
     )

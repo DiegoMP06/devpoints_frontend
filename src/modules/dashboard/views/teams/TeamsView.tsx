@@ -10,8 +10,11 @@ import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import { Team } from "@/types";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import useDashboard from "@/hooks/useDashboard";
 
 export default function TeamsView() {
+    const { contest } = useDashboard()
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const params = useParams();
     const queryClient = useQueryClient();
     const contestId = params.contestId || '';
@@ -54,8 +57,19 @@ export default function TeamsView() {
     if (isLoading) return <LoadingSpinner />;
     if (data) return (
         <>
-            <Heading>
-                Equipos
+            <Heading className="flex md:items-center flex-col md:flex-row gap-4">
+                <span className="inline-block">
+                    <img
+                        alt={`Logo de la competencia ${contest?.name}`}
+                        src={`${BACKEND_URL}/storage/contests/${contest?.image}`}
+                        className="inline-block size-16 md:size-14 rounded-full ring-2 ring-white"
+                        width={100}
+                        height={100}
+                    />
+                </span>
+                <span className="flex-1">
+                    {contest?.name} &gt; Equipos
+                </span>
             </Heading>
 
             <NavLinkContainer>

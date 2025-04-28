@@ -16,9 +16,9 @@ export default function MembersList({ members, handleSelectMemberForEdit, handle
     return (
         <div className="space-y-6">
             {members.length > 0 ? (
-                <ul className="grid grid-cols-1 gap-4">
+                <ul className="grid grid-cols-1">
                     {members.map((member) => (
-                        <li key={member.id} className=" bg-gray-100 hover:bg-gray-200 py-3 px-4 flex justify-between items-center">
+                        <li key={member.id} className=" bg-gray-100 hover:bg-gray-200 p-2 flex justify-between items-center">
                             <button type="button" onClick={() => handleSelectMemberForEdit(member.id)} className="text-lg font-bold text-gray-600 inline-flex gap-2 flex-1 items-center">
                                 <UserCircleIcon className="size-8" />
                                 {member.name} {member.father_last_name} {member.mother_last_name}
@@ -61,7 +61,7 @@ export default function MembersList({ members, handleSelectMemberForEdit, handle
 
             {hasAddMember && (
                 <nav className="block">
-                    <Link to="?add-member=true" className="inline-block text-white bg-purple-700 hover:bg-purple-800 px-4 py-3 transition-colors font-bold cursor-pointer">
+                    <Link to="?add-member=true" className="inline-block text-white bg-purple-700 hover:bg-purple-800 px-4 py-2 transition-colors font-bold cursor-pointer">
                         Agregar Miembro
                     </Link>
                 </nav>

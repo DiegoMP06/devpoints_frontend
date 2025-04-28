@@ -4,10 +4,28 @@ export const QuerySearchSchema = z.object({
     query: z.string(),
 });
 
+export const PaginationSchema = z.object({
+    current_page: z.number(),
+    from: z.number().nullable(),
+    last_page: z.number(),
+    path: z.string(),
+    per_page: z.number(),
+    to: z.number().nullable(),
+    total: z.number(),
+    links: z.array(
+        z.object({
+            url: z.string().nullable(),
+            label: z.string(),
+            active: z.boolean(),
+        })
+    ),
+});
+
 export const AuthSchema = z.object({
     name: z.string(),
     email: z.string().email(),
     password: z.string(),
+    current_password: z.string(),
     password_confirmation: z.string(),
 });
 
@@ -185,10 +203,51 @@ export const ContestSchema = z.object({
     teams: z.array(TeamSchema),
     exercises: z.array(ExerciseSchema),
     evaluators: z.array(EvaluatorSchema),
+    user: UserSchema.pick({ id: true, name: true, email: true }),
+    is_saved: UserSchema.pick({ id: true, name: true, email: true })
+        .extend({
+            pivot: z.object({ id: z.number() }),
+        })
+        .nullable(),
 });
 
 export const ContestDetailsSchema = z.object({
+    data: z.array(
+        ContestSchema.pick({
+            id: true,
+            name: true,
+            image: true,
+            is_published: true,
+            user_id: true,
+            user: true,
+            teams: true,
+            exercises: true,
+            evaluators: true,
+            updated_at: true,
+            created_at: true,
+        })
+    ),
+});
+
+export const ContestSummarySchema = z.object({
     data: z.array(ContestSchema),
+});
+
+export const FavoriteContestsSchema = z.object({
+    data: z.array(
+        ContestSchema.pick({
+            id: true,
+            name: true,
+            image: true,
+            is_published: true,
+            user_id: true,
+            user: true,
+            updated_at: true,
+            created_at: true,
+        }).extend({
+            pivot: z.object({ id: z.number() }),
+        })
+    ),
 });
 
 export const EditContestSchema = z.object({
@@ -201,7 +260,7 @@ export const EditContestSchema = z.object({
     ),
 });
 
-export const DashboardContestsSchema = z.object({
+export const ContestsSchema = z.object({
     data: z.array(
         ContestSchema.pick({
             id: true,
@@ -211,4 +270,19 @@ export const DashboardContestsSchema = z.object({
             user_id: true,
         })
     ),
+    meta: PaginationSchema,
+});
+
+export const HomeContestsSchema = z.object({
+    data: z.array(
+        ContestSchema.pick({
+            id: true,
+            name: true,
+            image: true,
+            is_published: true,
+            user_id: true,
+            user: true,
+        })
+    ),
+    meta: PaginationSchema,
 });

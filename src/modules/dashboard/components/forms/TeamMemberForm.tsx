@@ -1,6 +1,6 @@
 import ErrorMessage from "@/modules/app/components/ErrorMessage";
-import InputContainer from "../InputContainer";
-import LabelInput from "../LabelInput";
+import InputContainer from "../../../app/components/InputContainer";
+import LabelInput from "../../../app/components/LabelInput";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { TeamMemberFormData } from "@/types";
 
@@ -9,7 +9,7 @@ type TeamMemberFormProps = {
     errors: FieldErrors<TeamMemberFormData>
 }
 
-export default function TeamMemberForm({register, errors}: TeamMemberFormProps) {
+export default function TeamMemberForm({ register, errors }: TeamMemberFormProps) {
     return (
         <>
             <InputContainer>
@@ -21,7 +21,7 @@ export default function TeamMemberForm({register, errors}: TeamMemberFormProps) 
                     type="text"
                     id="name"
                     placeholder="Nombre del Miembro"
-                    className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                     {...register("name", {
                         required: "El nombre es requerido",
                         maxLength: {
@@ -42,7 +42,7 @@ export default function TeamMemberForm({register, errors}: TeamMemberFormProps) 
                     type="text"
                     id="father_last_name"
                     placeholder="Apellido Paterno del Miembro"
-                    className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                     {...register("father_last_name", {
                         required: "El apellido es requerido",
                         maxLength: {
@@ -63,7 +63,7 @@ export default function TeamMemberForm({register, errors}: TeamMemberFormProps) 
                     type="text"
                     id="mother_last_name"
                     placeholder="Apellido Materno del Miembro"
-                    className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                     {...register("mother_last_name", {
                         required: "El apellido es requerido",
                         maxLength: {

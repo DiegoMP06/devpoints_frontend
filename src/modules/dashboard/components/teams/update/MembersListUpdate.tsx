@@ -53,9 +53,9 @@ export default function MembersListUpdate({ members }: MembersListUpdateProps) {
 
     return (
         <div className="space-y-6 mt-6">
-            <ul className="grid grid-cols-1 gap-4">
+            <ul className="grid grid-cols-1">
                 {members.map((member) => (
-                    <li key={member.id} className=" bg-gray-100 hover:bg-gray-200 py-3 px-4 flex justify-between items-center">
+                    <li key={member.id} className=" bg-gray-100 hover:bg-gray-200 p-2 flex justify-between items-center">
                         <Link
                             to={`members/${member.id}/edit`}
                             className="text-lg font-bold text-gray-600 inline-flex gap-2 flex-1 items-center"
@@ -104,7 +104,7 @@ export default function MembersListUpdate({ members }: MembersListUpdateProps) {
                 <nav className="block">
                     <Link
                         to="members/new"
-                        className="inline-block text-white bg-purple-700 hover:bg-purple-800 px-4 py-3 transition-colors font-bold cursor-pointer"
+                        className="inline-block text-white bg-purple-700 hover:bg-purple-800 px-4 py-2 transition-colors font-bold cursor-pointer"
                     >
                         Agregar Miembro
                     </Link>

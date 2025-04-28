@@ -6,8 +6,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
 import FormContainer from "../FormContainer";
-import InputContainer from "../InputContainer";
-import LabelInput from "../LabelInput";
+import InputContainer from "../../../app/components/InputContainer";
+import LabelInput from "../../../app/components/LabelInput";
 import SubmitForm from "../SubmitForm";
 
 
@@ -62,7 +62,7 @@ export default function EditTeamForm({ team }: EditTeamFormProps) {
                         type="text"
                         id="name"
                         placeholder="Nombre de la Competencia"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register("name", {
                             required: "El nombre es requerido",
                             maxLength: {

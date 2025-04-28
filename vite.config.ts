@@ -12,6 +12,8 @@ export default defineConfig({
             app: fileURLToPath(new URL("./src/modules/app", import.meta.url)),
             auth: fileURLToPath(new URL("./src/modules/auth", import.meta.url)),
             dashboard: fileURLToPath(new URL("./src/modules/dashboard", import.meta.url)),
+            summary: fileURLToPath(new URL("./src/modules/summary", import.meta.url)),
+            profile: fileURLToPath(new URL("./src/modules/profile", import.meta.url)),
         },
     },
 });

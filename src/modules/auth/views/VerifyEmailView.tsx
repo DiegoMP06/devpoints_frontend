@@ -2,6 +2,8 @@ import AuthService from "@/services/AuthService";
 import { useQuery } from "@tanstack/react-query";
 import { Navigate, useLocation, useParams } from "react-router";
 import { toast } from "react-toastify";
+import Heading from "../components/Heading";
+import Subheading from "../components/Subheading";
 
 export default function VerifyEmailView() {
     const location = useLocation();
@@ -29,13 +31,13 @@ export default function VerifyEmailView() {
 
     return (
         <>
-            <h1 className="text-4xl font-bold text-white">
+            <Heading>
                 Verifica tu cuenta
-            </h1>
+            </Heading>
 
-            <p className="text-xl font-medium text-purple-100 mt-2">
+            <Subheading>
                 Verifica tu cuenta y comienza a disfrutar de nuestra plataforma. Gracias por registrarte.
-            </p>
+            </Subheading>
         </>
     )
 }

@@ -3,6 +3,7 @@ import {
     AssessmentSchema,
     AuthSchema,
     ContestSchema,
+    ContestsSchema,
     EditContestSchema,
     EditExerciseSchema,
     EditTeamMemberSchema,
@@ -10,6 +11,8 @@ import {
     EvaluatorSchema,
     ExerciseSchema,
     ExercisesSchema,
+    HomeContestsSchema,
+    PaginationSchema,
     QuerySearchSchema,
     SearchForUsersForEvaluatorsSchema,
     SubmitAssessmentFormDataSchema,
@@ -26,6 +29,11 @@ export type UserRegisterForm = Pick<
     "email" | "password" | "password_confirmation" | "name"
 >;
 export type UserLoginForm = Pick<Auth, "email" | "password">;
+export type EditProfileFormData = Pick<Auth, "name" | "email">;
+export type EditPasswordFormData = Pick<
+    Auth,
+    "current_password" | "password" | "password_confirmation"
+>;
 export type User = z.infer<typeof UserSchema>;
 
 export type Evaluator = z.infer<typeof EvaluatorSchema>;
@@ -35,6 +43,8 @@ export type SearchForUsersForEvaluatorsSchema = z.infer<
 export type AddEvaluatorFormData = z.infer<typeof AddEvaluatorFormDataSchema>;
 
 export type Contest = z.infer<typeof ContestSchema>;
+export type Contests = z.infer<typeof ContestsSchema>;
+export type HomeContests = z.infer<typeof HomeContestsSchema>;
 export type EditContest = z.infer<typeof EditContestSchema>;
 export type ContestFormData = Pick<Contest, "name"> & {
     image: FileList | null;
@@ -68,13 +78,14 @@ export type EditTeamFormData = Pick<Team, "name">;
 export type Assessment = z.infer<typeof AssessmentSchema>;
 export type GetDataForAssessment = {
     team: Team;
-    exercises: Exercises['data'];
-}
+    exercises: Exercises["data"];
+};
 export type SubmitAssessmentFormData = z.infer<
     typeof SubmitAssessmentFormDataSchema
 >;
 
 export type QuerySearch = z.infer<typeof QuerySearchSchema>;
+export type Pagination = z.infer<typeof PaginationSchema>;
 
 export type NotificationAPI = {
     message: string;

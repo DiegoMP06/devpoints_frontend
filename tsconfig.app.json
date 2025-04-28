@@ -27,7 +27,9 @@
       "@/*": ["*"],
       "app/*": ["modules/app/*"],
       "auth/*": ["modules/auth/*"],
-      "dashboard/*": ["modules/dashboard/*"]
+      "dashboard/*": ["modules/dashboard/*"],
+      "profile/*": ["modules/profile/*"],
+      "summary/*": ["modules/summary/*"]
     }
   },
   "include": ["src"]

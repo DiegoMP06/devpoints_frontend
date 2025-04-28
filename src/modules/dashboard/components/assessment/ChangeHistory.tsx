@@ -7,14 +7,14 @@ type ChangeHistoryProps = {
 
 export default function ChangeHistory({ teams }: ChangeHistoryProps) {
     return (
-        <section className="max-w-2xl bg-white p-8 shadow-lg mx-auto my-10">
+        <section className="max-w-2xl bg-white p-5 md:p-8 shadow-lg mx-auto my-10">
             <h2 className="text-2xl font-bold text-gray-600">
                 Historial de Cambios:
             </h2>
 
             <ul className="my-6 grid grid-cols-1 divide-gray-300 divide-y">
                 {teams.map((team) => (
-                    <li key={team.id} className="px-4 py-2">
+                    <li key={team.id} className="p-2">
                         <p className="text-xl font-bold text-gray-600">
                             {team.name}
                         </p>

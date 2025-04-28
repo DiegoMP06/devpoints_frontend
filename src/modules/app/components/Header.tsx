@@ -1,34 +1,33 @@
 import useApp from "@/hooks/useApp";
-import AuthService from "@/services/AuthService";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { Bars4Icon, UserCircleIcon } from "@heroicons/react/24/solid";
-import { useMutation } from "@tanstack/react-query";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { toast } from "react-toastify";
 import Logo from "./Logo";
-import MenuMobile from "./MenuMobile";
+import { useMutation } from "@tanstack/react-query";
+import AuthService from "@/services/AuthService";
+import { toast } from "react-toastify";
 
 type HeaderProps = {
     isStatic?: boolean
 }
 
 export default function Header({ isStatic }: HeaderProps) {
-    const { mutateAuth, user, setMenuMobile } = useApp();
+    const { user, setMenuMobile, mutateAuth } = useApp();
     const navigate = useNavigate();
     const header = useRef<HTMLDivElement>(null);
     const [height, setHeight] = useState(0);
     const location = useLocation();
 
-    const { mutate } = useMutation({
+    const { mutate: logout } = useMutation({
         mutationFn: AuthService.logout,
         onSuccess() {
             mutateAuth(undefined);
             navigate("/login");
         },
         onError(error) {
-            toast.error(error.message)
-        }
+            toast.error(error.message);
+        },
     });
 
     useEffect(() => {
@@ -50,9 +49,9 @@ export default function Header({ isStatic }: HeaderProps) {
 
     return (
         <>
-            <header ref={header} className={`fixed ${isStatic ? 'md:static' : ''} top-0 right-0 left-0 bg-white shadow-lg px-4 py-2`}>
+            <header ref={header} className={`fixed ${isStatic ? 'md:static' : 'z-40'} top-0 right-0 left-0 bg-white shadow-lg px-4 py-2`}>
                 <div className="container mx-auto flex justify-between gap-4 items-center">
-                    <Link to={user ? '/dashboard' : '/'} className="max-w-22 block">
+                    <Link to={user ? '/dashboard' : '/'} className="w-22 h-11 block">
                         <Logo />
                     </Link>
 
@@ -93,7 +92,7 @@ export default function Header({ isStatic }: HeaderProps) {
                                 <MenuItems
                                     transition
                                     anchor="bottom end"
-                                    className="bg-white w-52 origin-top-right rounded-xl border border-gray-300 p-1 transition"
+                                    className="bg-white w-52 origin-top-right rounded-xl border border-gray-300 p-1 transition z-50"
                                 >
                                     <MenuItem>
                                         <Link to="/profile" className="group block hover:bg-gray-100 transition-colors text-start text-gray-600 w-full gap-2 rounded-lg px-3 py-1.5">
@@ -107,7 +106,7 @@ export default function Header({ isStatic }: HeaderProps) {
                                     </MenuItem>
                                     <MenuItem>
                                         <button
-                                            onClick={() => mutate()}
+                                            onClick={() => logout()}
                                             type="button"
                                             className="group block hover:bg-gray-100 transition-colors text-start text-gray-600 w-full gap-2 rounded-lg px-3 py-1.5"
                                         >
@@ -123,7 +122,7 @@ export default function Header({ isStatic }: HeaderProps) {
                                 Iniciar Sesión
                             </Link>
                             <Link to="/register" className="text-gray-600 font-bold">
-                                Registrarme
+                                Registrarse
                             </Link>
                         </>)}
                     </nav>
@@ -131,8 +130,6 @@ export default function Header({ isStatic }: HeaderProps) {
             </header>
 
             <div style={{ height: `${height}px` }} className={`${isStatic ? 'md:hidden' : ''}`} />
-
-            <MenuMobile />
         </>
 
     )

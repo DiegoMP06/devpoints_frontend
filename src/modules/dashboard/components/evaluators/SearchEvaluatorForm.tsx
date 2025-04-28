@@ -22,7 +22,7 @@ export default function SearchEvaluatorForm({register, handleSubmit, errors, han
                     Agregar Evaluador
                 </DialogTitle>
 
-                <p className="text-xl font-bold text-gray-400">
+                <p className="text-xl font-bold text-gray-400 mt-2">
                     Busca un Evaluador por su nombre o email
                 </p>
             </div>

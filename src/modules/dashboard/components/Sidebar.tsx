@@ -10,7 +10,7 @@ export default function Sidebar() {
     const contestId = params.contestId || '';
 
     return (
-        <aside className="w-60 hidden md:flex bg-white border border-gray-300 px-4 py-6 shadow-lg flex-col">
+        <aside className="w-60 hidden md:flex bg-white border border-gray-300 shadow-lg flex-col">
             <NavLinkSidebar
                 to={`/dashboard/contests/${contestId}`}
                 icon={<ChartBarIcon className="size-6" />}

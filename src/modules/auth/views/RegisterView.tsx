@@ -1,11 +1,16 @@
-import { useMutation } from "@tanstack/react-query";
-import { Link, useNavigate } from "react-router";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { toast } from 'react-toastify'
+import useApp from "@/hooks/useApp";
 import ErrorMessage from "@/modules/app/components/ErrorMessage";
+import InputContainer from "@/modules/app/components/InputContainer";
+import LabelInput from "@/modules/app/components/LabelInput";
 import AuthService from "@/services/AuthService";
 import { UserRegisterForm } from "@/types";
-import useApp from "@/hooks/useApp";
+import { useMutation } from "@tanstack/react-query";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router";
+import { toast } from 'react-toastify';
+import FormContainer from "../components/FormContainer";
+import Heading from "../components/Heading";
+import Subheading from "../components/Subheading";
 
 export default function RegisterView() {
     const { mutateAuth } = useApp();
@@ -37,44 +42,43 @@ export default function RegisterView() {
 
     return (
         <>
-            <h1 className="text-4xl font-bold text-white">
+            <Heading>
                 Crear Cuenta
-            </h1>
+            </Heading>
 
-            <p className="text-xl font-medium text-purple-100 mt-2">
+            <Subheading>
                 Crea una cuenta y comienza a disfrutar de nuestra plataforma.
-            </p>
+            </Subheading>
 
-            <form
-                className="mt-10 space-y-4 p-8 bg-white"
+            <FormContainer
                 onSubmit={handleSubmit(handleRegisterUser)}
             >
-                <div className="block space-y-2">
-                    <label htmlFor="name" className="text-xl text-gray-600 block w-full">
+                <InputContainer>
+                    <LabelInput htmlFor="name">
                         Tu Nombre:
-                    </label>
+                    </LabelInput>
 
                     <input
                         type="text"
                         id="name"
                         placeholder="Tu Nombre"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register("name", { required: "El nombre es requerido" })}
                     />
 
                     {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
-                </div>
+                </InputContainer>
 
-                <div className="block space-y-2">
-                    <label htmlFor="email" className="text-xl text-gray-600 block w-full">
+                <InputContainer>
+                    <LabelInput htmlFor="email">
                         Tu Email:
-                    </label>
+                    </LabelInput>
 
                     <input
                         type="email"
                         id="email"
                         placeholder="Tu Email"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register("email", {
                             required: "El email es requerido",
                             pattern: {
@@ -85,18 +89,18 @@ export default function RegisterView() {
                     />
 
                     {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-                </div>
+                </InputContainer>
 
-                <div className="block space-y-2">
-                    <label htmlFor="password" className="text-xl text-gray-600 block w-full">
+                <InputContainer>
+                    <LabelInput htmlFor="password">
                         Tu Contraseña:
-                    </label>
+                    </LabelInput>
 
                     <input
                         type="password"
                         id="password"
                         placeholder="Tu Contraseña"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register("password", {
                             required: "La contraseña es requerida",
                             minLength: {
@@ -107,18 +111,18 @@ export default function RegisterView() {
                     />
 
                     {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
-                </div>
+                </InputContainer>
 
-                <div className="block space-y-2">
-                    <label htmlFor="password_confirmation" className="text-xl text-gray-600 block w-full">
+                <InputContainer>
+                    <LabelInput htmlFor="password_confirmation">
                         Repite Tu Contraseña:
-                    </label>
+                    </LabelInput>
 
                     <input
                         type="password"
                         id="password_confirmation"
                         placeholder="Repite Tu Contraseña"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register("password_confirmation", {
                             required: "La confirmación de la contraseña es requerida",
                             validate: (value) => value === password || "Las contraseñas no coinciden",
@@ -126,15 +130,15 @@ export default function RegisterView() {
                     />
 
                     {errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage>}
-                </div>
+                </InputContainer>
 
                 <input
                     disabled={isPending}
                     type="submit"
                     value="Crear Cuenta"
-                    className="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-4 cursor-pointer transition-colors block w-full text-center disabled:opacity-25 disabled:cursor-not-allowed"
+                    className="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 cursor-pointer transition-colors block w-full text-center disabled:opacity-25 disabled:cursor-not-allowed"
                 />
-            </form>
+            </FormContainer>
 
             <nav className="flex gap-6 justify-between items-center mt-10 flex-col lg:flex-row">
                 <Link to="/login" className="text-purple-100 hover:underline hover:text-white transition-colors text-center">

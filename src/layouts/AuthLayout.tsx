@@ -43,7 +43,6 @@ export default function AuthLayout() {
     }, [user, isAuthLoading, location.pathname]);
 
     if (isLoading) return <LoadingSpinner />
-
     if (!isError) return (
         <>
             <div className="min-h-screen flex flex-col">
@@ -56,7 +55,7 @@ export default function AuthLayout() {
                 </div>
 
                 <div className="bg-purple-700 flex-1 flex flex-col">
-                    <main className="max-w-xl mx-auto my-10 px-4 flex-1">
+                    <main className="max-w-xl mx-auto my-10 px-2 flex-1">
                         <Outlet />
                     </main>
 

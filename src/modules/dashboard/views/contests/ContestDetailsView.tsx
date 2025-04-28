@@ -7,23 +7,24 @@ import TeamsSummary from "dashboard/components/contest/TeamsSummary";
 import EvaluatorsSummary from "../../components/contest/EvaluatorsSummary";
 
 export default function ContestDetailsView() {
-    const {contest} = useDashboard();
+    const { contest } = useDashboard();
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
     if (contest) return (
         <>
-            <Heading className="flex items-center gap-4">
-                <span>
+            <Heading className="flex md:items-center flex-col md:flex-row gap-4">
+                <span className="inline-block">
                     <img
                         alt={`Logo de la competencia ${contest.name}`}
                         src={`${BACKEND_URL}/storage/contests/${contest.image}`}
-                        className="inline-block size-12 rounded-full ring-2 ring-white"
+                        className="inline-block size-16 md:size-14 rounded-full ring-2 ring-white"
                         width={100}
                         height={100}
                     />
                 </span>
-
-                {contest.name}
+                <span className="flex-1">
+                    {contest.name} &gt; Detalles
+                </span>
             </Heading>
 
             <NavLinkContainer>

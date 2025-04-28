@@ -10,8 +10,11 @@ import LoadingSpinner from "app/components/LoadingSpinner";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import { Exercise } from "@/types";
+import useDashboard from "@/hooks/useDashboard";
 
 export default function ExercisesView() {
+    const { contest } = useDashboard();
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
     const queryClient = useQueryClient();
     const params = useParams();
     const contestId = params.contestId || '';
@@ -51,8 +54,19 @@ export default function ExercisesView() {
     if (isLoading) return <LoadingSpinner />
     if (data) return (
         <>
-            <Heading>
-                Ejercicios
+            <Heading className="flex md:items-center flex-col md:flex-row gap-4">
+                <span className="inline-block">
+                    <img
+                        alt={`Logo de la competencia ${contest?.name}`}
+                        src={`${BACKEND_URL}/storage/contests/${contest?.image}`}
+                        className="inline-block size-16 md:size-14 rounded-full ring-2 ring-white"
+                        width={100}
+                        height={100}
+                    />
+                </span>
+                <span className="flex-1">
+                    {contest?.name} &gt; Ejercicios
+                </span>
             </Heading>
 
             <NavLinkContainer>

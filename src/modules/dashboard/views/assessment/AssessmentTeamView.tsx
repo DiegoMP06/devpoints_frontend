@@ -47,11 +47,11 @@ export default function AssessmentTeamView() {
             )}
 
             <nav className="mt-10 flex gap-2 flex-wrap">
-                <Link to={`/dashboard/contests/${contestId}/assessment`} className="inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-4 mt-4">
+                <Link to={`/dashboard/contests/${contestId}/assessment`} className="inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 mt-4">
                     Volver
                 </Link>
 
-                <Link to={`/dashboard/contests/${contestId}/assessment/teams/${teamId}/details`} className="inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-4 mt-4">
+                <Link to={`/dashboard/contests/${contestId}/assessment/teams/${teamId}/details`} className="inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 mt-4">
                     Ver Detalles del Equipo
                 </Link>
             </nav>

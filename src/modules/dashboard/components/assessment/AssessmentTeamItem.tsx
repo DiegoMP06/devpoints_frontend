@@ -13,7 +13,7 @@ export default function AssessmentTeamItem({ team }: AssessmentTeamItemProps) {
 
     return (
         <li key={team.id} className="flex items-center justify-between">
-            <Link to={`/dashboard/contests/${contestId}/assessment/${team.id}`} className="text-gray-600 font-bold p-4 text-xl hover:underline">
+            <Link to={`/dashboard/contests/${contestId}/assessment/${team.id}`} className="text-gray-600 font-bold p-2 text-xl hover:underline">
                 {team.name}
             </Link>
 

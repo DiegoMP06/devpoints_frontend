@@ -23,7 +23,7 @@ export default function useContest() {
             return data;
         },
         {
-            refreshInterval: 3000,
+            refreshInterval: 5000,
         }
     );
 

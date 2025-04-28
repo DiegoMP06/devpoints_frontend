@@ -134,7 +134,7 @@ export default function ExerciseItem({ exercise, team }: ExerciseItemProps) {
     }
 
     return (
-        <li className="text-gray-600 font-bold px-4 py-2 flex flex-wrap items-center justify-between gap-4">
+        <li className="text-gray-600 font-bold p-2 flex flex-wrap items-center justify-between gap-4">
             <p className="flex items-center justify-between gap-4 flex-1">
                 {exercise.name}
                 <span className="text-sm text-gray-400 font-bold">

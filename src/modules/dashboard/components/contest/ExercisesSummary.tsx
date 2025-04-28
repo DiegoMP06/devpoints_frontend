@@ -14,7 +14,7 @@ export default function ExercisesSummary({ exercises }: ExercisesSummaryProps) {
     const totalPoints = useMemo(() => exercises.reduce((total, exercise) => total + exercise.points, 0), [exercises]);
 
     return (
-        <section className="max-w-2xl bg-white p-8 shadow-lg mx-auto my-10">
+        <section className="max-w-2xl bg-white p-5 md:p-8 shadow-lg mx-auto my-10">
             <h2 className="text-2xl font-bold text-gray-600">
                 Ejercicios:
             </h2>
@@ -22,7 +22,7 @@ export default function ExercisesSummary({ exercises }: ExercisesSummaryProps) {
             {exercises.length > 0 ? (
                 <ul className="my-6 grid grid-cols-1 divide-gray-300 divide-y">
                     {exercises.map((exercise, i) => (
-                        <li key={exercise.id} className="text-gray-600 font-bold px-4 py-2 flex items-center justify-between gap-4">
+                        <li key={exercise.id} className="text-gray-600 font-bold p-2 flex items-center justify-between gap-4">
                             {i + 1}. {exercise.name}
                             <span className="text-sm text-gray-400 font-bold">
                                 {exercise.points} puntos
@@ -30,7 +30,7 @@ export default function ExercisesSummary({ exercises }: ExercisesSummaryProps) {
                         </li>
                     ))}
 
-                    <li className="text-gray-600 font-bold px-4 py-2 flex items-center justify-between gap-4">
+                    <li className="text-gray-600 font-bold p-2 flex items-center justify-between gap-4">
                         Total:
                         <span className="text-sm text-gray-400 font-bold">
                             {totalPoints} puntos
@@ -53,7 +53,7 @@ export default function ExercisesSummary({ exercises }: ExercisesSummaryProps) {
             )}
 
             {isCreatorOfTheContest && (
-                <Link to={`/dashboard/contests/${contestId}/exercises`} className="px-4 py-3 bg-cyan-700 hover:bg-cyan-800 text-white font-bold cursor-pointer transition-colors inline-block">
+                <Link to={`/dashboard/contests/${contestId}/exercises`} className="px-4 py-2 bg-cyan-700 hover:bg-cyan-800 text-white font-bold cursor-pointer transition-colors inline-block">
                     Ver Más
                 </Link>
             )}

@@ -1,6 +1,6 @@
 import type { ContestFormData } from "@/types";
-import InputContainer from "../InputContainer";
-import LabelInput from "../LabelInput";
+import InputContainer from "../../../app/components/InputContainer";
+import LabelInput from "../../../app/components/LabelInput";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import ErrorMessage from "@/modules/app/components/ErrorMessage";
 
@@ -24,7 +24,7 @@ export default function ContestForm({ register, errors, image }: ContestFormProp
                     type="text"
                     id="name"
                     placeholder="Nombre de la Competencia"
-                    className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                     {...register("name", {
                         required: "El nombre es requerido",
                         maxLength: {
@@ -53,7 +53,7 @@ export default function ContestForm({ register, errors, image }: ContestFormProp
                     title="Selecciona Imagen de la Competencia"
                     type="file"
                     id="image"
-                    className="border border-dashed border-gray-300 w-full p-4"
+                    className="border border-dashed border-gray-300 w-full px-4 py-2"
                     {...register("image", image ? {} : {
                         required: "La imagen es requerida",
                         validate: (value) => value?.length === 1 || "La imagen es requerida"

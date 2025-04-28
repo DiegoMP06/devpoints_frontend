@@ -2,8 +2,8 @@ import 'react-quill-new/dist/quill.snow.css';
 import { FieldErrors, UseFormClearErrors, UseFormRegister, UseFormSetError, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import ReactQuill, { EmitterSource } from 'react-quill-new';
 import { ExerciseFormData } from "@/types";
-import InputContainer from "../InputContainer";
-import LabelInput from "../LabelInput";
+import InputContainer from "../../../app/components/InputContainer";
+import LabelInput from "../../../app/components/LabelInput";
 import ErrorMessage from "app/components/ErrorMessage";
 import { Delta } from 'quill';
 import { useEffect, useState } from 'react';
@@ -28,12 +28,12 @@ export default function ExerciseForm({ register, errors, watch, setError, setVal
     }
 
     useEffect(() => {
-        if(charsDescription === 0) {
-            return setError("description", {message: "La descripcion es requerida"});
+        if (charsDescription === 0) {
+            return setError("description", { message: "La descripcion es requerida" });
         }
 
-        if(charsDescription < 100) {
-            return setError("description", {message: "La descripcion debe tener mas de 100 caracteres"});
+        if (charsDescription < 100) {
+            return setError("description", { message: "La descripcion debe tener mas de 100 caracteres" });
         }
 
         clearErrors("description");
@@ -51,7 +51,7 @@ export default function ExerciseForm({ register, errors, watch, setError, setVal
                     type="text"
                     id="name"
                     placeholder="Nombre del Ejercicio"
-                    className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                     {...register("name", {
                         required: "El nombre es requerido",
                         maxLength: {
@@ -65,7 +65,7 @@ export default function ExerciseForm({ register, errors, watch, setError, setVal
             </InputContainer>
 
             <InputContainer>
-                <p className="text-xl text-gray-600 block w-full font-bold">
+                <p className="text-lg sm:text-xl text-gray-600 block w-full font-bold">
                     Descripcion del Ejercicio:
                 </p>
 
@@ -87,7 +87,7 @@ export default function ExerciseForm({ register, errors, watch, setError, setVal
                     type="number"
                     id="points"
                     placeholder="Puntaje del Ejercicio"
-                    className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                     min={1}
                     {...register("points", {
                         required: "El puntaje es requerido",

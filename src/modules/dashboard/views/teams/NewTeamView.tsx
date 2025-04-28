@@ -4,8 +4,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import ErrorMessage from "app/components/ErrorMessage";
 import FormContainer from "dashboard/components/FormContainer";
 import Heading from "dashboard/components/Heading";
-import InputContainer from "dashboard/components/InputContainer";
-import LabelInput from "dashboard/components/LabelInput";
+import InputContainer from "@/modules/app/components/InputContainer";
+import LabelInput from "@/modules/app/components/LabelInput";
 import NavLink from "dashboard/components/NavLink";
 import NavLinkContainer from "dashboard/components/NavLinkContainer";
 import SubmitForm from "dashboard/components/SubmitForm";
@@ -134,7 +134,7 @@ export default function NewTeamView() {
                         type="text"
                         id="name"
                         placeholder="Nombre del Equipo"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register("name", {
                             required: "El nombre es requerido",
                             maxLength: {

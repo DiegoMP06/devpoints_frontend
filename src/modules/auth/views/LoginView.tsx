@@ -6,6 +6,11 @@ import { useMutation } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import Heading from "../components/Heading";
+import Subheading from "../components/Subheading";
+import FormContainer from "../components/FormContainer";
+import InputContainer from "@/modules/app/components/InputContainer";
+import LabelInput from "@/modules/app/components/LabelInput";
 
 export default function LoginView() {
     const { mutateAuth } = useApp();
@@ -32,25 +37,25 @@ export default function LoginView() {
 
     return (
         <>
-            <h1 className="text-4xl font-bold text-white">
+            <Heading>
                 Iniciar Sesión
-            </h1>
+            </Heading>
 
-            <p className="text-xl font-medium text-purple-100 mt-2">
+            <Subheading>
                 Inicia sesión y comienza a disfrutar de nuestra plataforma.
-            </p>
+            </Subheading>
 
-            <form className="mt-10 space-y-4 p-8 bg-white" onSubmit={handleSubmit(handleLoginUser)}>
-                <div className="block space-y-2">
-                    <label htmlFor="email" className="text-xl text-gray-600 block w-full">
+            <FormContainer onSubmit={handleSubmit(handleLoginUser)}>
+                <InputContainer>
+                    <LabelInput htmlFor="email">
                         Tu Email:
-                    </label>
+                    </LabelInput>
 
                     <input
                         type="email"
                         id="email"
                         placeholder="Tu Email"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register('email', {
                             required: "El email es requerido",
                             pattern: {
@@ -61,33 +66,33 @@ export default function LoginView() {
                     />
 
                     {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-                </div>
+                </InputContainer>
 
-                <div className="block space-y-2">
-                    <label htmlFor="password" className="text-xl text-gray-600 block w-full">
+                <InputContainer>
+                    <LabelInput htmlFor="password">
                         Tu Contraseña:
-                    </label>
+                    </LabelInput>
 
                     <input
                         type="password"
                         id="password"
                         placeholder="Tu Contraseña"
-                        className="border border-gray-300 w-full px-4 py-3 placeholder-gray-400"
+                        className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
                         {...register("password", {
                             required: "La contraseña es requerida",
                         })}
                     />
 
                     {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
-                </div>
+                </InputContainer>
 
                 <input
                     disabled={isPending}
                     type="submit"
                     value="Iniciar Sesión"
-                    className="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-4 cursor-pointer transition-colors block w-full text-center disabled:opacity-25 disabled:cursor-not-allowed"
+                    className="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 cursor-pointer transition-colors block w-full text-center disabled:opacity-25 disabled:cursor-not-allowed"
                 />
-            </form>
+            </FormContainer>
 
             <nav className="flex gap-6 justify-between items-center mt-10 flex-col lg:flex-row">
                 <Link to="/register" className="text-purple-100 hover:underline hover:text-white transition-colors text-center">

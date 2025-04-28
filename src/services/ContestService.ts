@@ -1,7 +1,7 @@
 import { api } from "@/lib/axios";
 import {
     ContestDetailsSchema,
-    DashboardContestsSchema,
+    ContestsSchema,
     EditContestSchema,
 } from "@/schemas";
 import { ContestFormData, NotificationAPI } from "@/types";
@@ -17,12 +17,11 @@ export default {
     async getContestsUser() {
         try {
             const { data } = await api.get("/contests");
-            const response = DashboardContestsSchema.safeParse(data);
+            const response = ContestsSchema.safeParse(data);
             if (!response.success) {
                 throw new Error(response.error.message);
             }
-
-            return response.data.data;
+            return response.data;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 throw new Error(error.response.data.message);
@@ -121,6 +120,20 @@ export default {
                 `/contests/${id}`
             );
 
+            return response.message;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                throw new Error(error.response.data.message);
+            } else if (error instanceof Error) {
+                throw new Error(error.message);
+            }
+        }
+    },
+    async changeContestStatus({ id }: Pick<ContestServiceType, "id">) {
+        try {
+            const { data: response } = await api.post<NotificationAPI>(
+                `/contests/${id}/status`
+            );
             return response.message;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

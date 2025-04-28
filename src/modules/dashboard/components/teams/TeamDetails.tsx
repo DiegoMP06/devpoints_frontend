@@ -39,14 +39,14 @@ export default function TeamDetails({ urlToReturn }: TeamDetailsProps) {
 
             <ul className="mt-2">
                 {data.members.map((member) => (
-                    <li key={member.id} className="text-lg font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 py-3 px-4 flex items-center gap-4">
+                    <li key={member.id} className="text-lg font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 p-2 flex items-center gap-4">
                         <UserCircleIcon className="size-8" />
                         {member.name} {member.father_last_name} {member.mother_last_name}
                     </li>
                 ))}
             </ul>
 
-            <Link to={urlToReturn} className="mt-10 inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-4">
+            <Link to={urlToReturn} className="mt-10 inline-block bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4">
                 Volver
             </Link>
         </Modal>

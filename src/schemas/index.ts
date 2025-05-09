@@ -27,6 +27,7 @@ export const AuthSchema = z.object({
     password: z.string(),
     current_password: z.string(),
     password_confirmation: z.string(),
+    token: z.string(),
 });
 
 export const UserSchema = z.object({

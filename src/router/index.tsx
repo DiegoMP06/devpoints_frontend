@@ -49,7 +49,7 @@ export default function Router() {
                     <Route element={<Suspense fallback={<LoadingSpinner />}><LoginView /></Suspense>} path="/login" />
                     <Route element={<Suspense fallback={<LoadingSpinner />}><RegisterView /></Suspense>} path="/register" />
                     <Route element={<Suspense fallback={<LoadingSpinner />}><ForgotPasswordView /></Suspense>} path="/forgot-password" />
-                    <Route element={<Suspense fallback={<LoadingSpinner />}><ResetPasswordView /></Suspense>} path="/reset-password" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><ResetPasswordView /></Suspense>} path="/reset-password/:token" />
                     <Route element={<Suspense fallback={<LoadingSpinner />}><EmailVerificationNotificationView /></Suspense>} path="/email/verification-notification" />s
                 </Route>
 

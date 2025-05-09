@@ -36,6 +36,8 @@ export type EditPasswordFormData = Pick<
     Auth,
     "current_password" | "password" | "password_confirmation"
 >;
+export type ForgotPasswordForm = Pick<Auth, "email">;
+export type ResetPasswordForm = Pick<Auth, "email" | "password" | "password_confirmation" | "token">;
 export type User = z.infer<typeof UserSchema>;
 
 export type Evaluator = z.infer<typeof EvaluatorSchema>;

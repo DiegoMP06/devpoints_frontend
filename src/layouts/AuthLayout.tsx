@@ -27,17 +27,17 @@ export default function AuthLayout() {
     useEffect(() => {
         if (isAuthLoading) return;
 
-        if (authorizedRoutes.includes(location.pathname) && user) {
+        if (authorizedRoutes.some(route => location.pathname.includes(route)) && user) {
             navigate('/dashboard');
             return
         }
 
-        if (!authorizedRoutes.includes(location.pathname) && !user) {
+        if (!authorizedRoutes.some(route => location.pathname.includes(route)) && !user) {
             navigate('/login');
             return
         }
 
-        if (!authorizedRoutes.includes(location.pathname) && user && user?.email_verified_at) {
+        if (!authorizedRoutes.some(route => location.pathname.includes(route)) && user && user?.email_verified_at) {
             navigate('/dashboard');
         }
     }, [user, isAuthLoading, location.pathname]);

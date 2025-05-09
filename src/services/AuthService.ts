@@ -1,6 +1,12 @@
 import { api } from "@/lib/axios";
 import { AuthenticationSchema } from "@/schemas";
-import { NotificationAPI, UserLoginForm, UserRegisterForm } from "@/types";
+import {
+    ForgotPasswordForm,
+    NotificationAPI,
+    ResetPasswordForm,
+    UserLoginForm,
+    UserRegisterForm,
+} from "@/types";
 import { isAxiosError } from "axios";
 
 const baseURL = import.meta.env.VITE_BACKEND_URL;
@@ -73,8 +79,46 @@ export default {
             });
 
             localStorage.removeItem("AUTH_TOKEN");
-            
+
             return null;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                throw new Error(error.response.data.message);
+            } else if (error instanceof Error) {
+                throw new Error(error.message);
+            }
+        }
+    },
+    async forgotPassword(data: ForgotPasswordForm) {
+        try {
+            const { data: response } = await api.post<NotificationAPI>(
+                "/forgot-password",
+                data,
+                {
+                    baseURL,
+                }
+            );
+
+            return response.message;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                throw new Error(error.response.data.message);
+            } else if (error instanceof Error) {
+                throw new Error(error.message);
+            }
+        }
+    },
+    async resetPassword(data: ResetPasswordForm) {
+        try {
+            const { data: response } = await api.post<NotificationAPI>(
+                "/reset-password",
+                data,
+                {
+                    baseURL,
+                }
+            );
+
+            return response.message;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 throw new Error(error.response.data.message);

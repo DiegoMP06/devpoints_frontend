@@ -6,6 +6,7 @@ import GuestService from "@/services/GuestService";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import Pagination from '../components/Pagination';
 import { useEffect } from "react";
+import { Contest } from "@/types";
 
 export default function HomeView() {
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
@@ -25,6 +26,22 @@ export default function HomeView() {
             queryKey: ['home-contests']
         })
     }, [page, query]);
+
+    const isPending = (started_at: Contest['started_at']) => {
+        const startedAtTime = new Date(started_at).getTime();
+        return startedAtTime >= Date.now();
+    }
+
+    const isActive = (started_at: Contest['started_at'], ended_at: Contest['ended_at']) => {
+        const startedAtTime = new Date(started_at).getTime();
+        const endedAtTime = new Date(ended_at).getTime();
+        return startedAtTime < Date.now() && endedAtTime > Date.now();
+    }
+
+    const isEnded = (ended_at: Contest['ended_at']) => {
+        const endedAtTime = new Date(ended_at).getTime();
+        return endedAtTime <= Date.now();
+    }
 
     if (error) return <Navigate to="/" replace />
     if (isLoading) return <LoadingSpinner />
@@ -46,7 +63,7 @@ export default function HomeView() {
                                 />
                             </div>
 
-                            <div className="flex-1">
+                            <div className="flex-1 flex flex-col gap-1">
                                 <Link
                                     to={`/summary/contests/${contest.id}`}
                                     className="text-xl font-bold text-gray-600 hover:underline"
@@ -54,12 +71,29 @@ export default function HomeView() {
                                     {contest.name}
                                 </Link>
 
-                                <p className="text-gray-400 flex gap-1 text-sm font-bold mt-1 items-center">
+                                <div>
+                                    {isPending(contest.started_at) && (
+                                        <p className="text-gray-700 bg-gray-200 p-1 inline-block text-xs font-bold">
+                                            Todavia no ha iniciado
+                                        </p>
+                                    )}
+                                    {isActive(contest.started_at, contest.ended_at) && (
+                                        <p className="text-purple-700 bg-purple-200 p-1 inline-block text-xs font-bold">
+                                            En curso
+                                        </p>
+                                    )}
+                                    {isEnded(contest.ended_at) && (
+                                        <p className="text-orange-700 bg-orange-200 p-1 inline-block text-xs font-bold">
+                                            Ha Finalizado
+                                        </p>
+                                    )}
+                                </div>
+
+                                <p className="text-gray-400 flex gap-1 text-sm font-bold items-center">
                                     <UserCircleIcon className="size-6" />
                                     {contest.user.name}
                                 </p>
                             </div>
-
                         </div>
                     ))}
                 </div>

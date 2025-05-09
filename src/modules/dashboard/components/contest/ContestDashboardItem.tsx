@@ -62,7 +62,7 @@ export default function ContestDashboardItem({ contest }: ContestDashboardItemPr
             icon: 'warning',
             showCancelButton: true,
             cancelButtonText: 'Cancelar',
-            confirmButtonText: 'Si, eliminar',
+            confirmButtonText: 'Si',
         }).then((result) => {
             if (result.isConfirmed) {
                 publishMutation.mutate({ id: contestId });

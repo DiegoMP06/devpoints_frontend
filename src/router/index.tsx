@@ -1,108 +1,109 @@
-import AuthLayout from "@/layouts/AuthLayout";
-import ContestSummaryLayout from "@/layouts/ContestSummaryLayout";
-import DashboardLayout from "@/layouts/DashboardLayout";
-import MainLayout from "@/layouts/MainLayout";
-import ProfileLayout from "@/layouts/ProfileLayout";
-import FavoritesView from "@/modules/app/views/FavoritesView";
-import ChangePasswordView from "@/modules/profile/views/ChangePasswordView";
-import EditProfileView from "@/modules/profile/views/EditProfileView";
-import HomeView from "app/views/HomeView";
-import NotFoundView from "app/views/NotFoundView";
-import EmailVerificationNotificationView from "auth/views/EmailVerificationNotificationView";
-import ForgotPasswordView from "auth/views/ForgotPasswordView";
-import LoginView from "auth/views/LoginView";
-import RegisterView from "auth/views/RegisterView";
-import ResetPasswordView from "auth/views/ResetPasswordView";
-import VerifyEmailView from "auth/views/VerifyEmailView";
-import DashboardView from "dashboard/views/DashboardView";
-import AssessmentTeamDetailsView from "dashboard/views/assessment/AssesmentTeamDetailsView";
-import AssessmentExerciseDetailsView from "dashboard/views/assessment/AssessmentExerciseDetailsView";
-import AssessmentTeamView from "dashboard/views/assessment/AssessmentTeamView";
-import AssessmentView from "dashboard/views/assessment/AssessmentView";
-import ContestDetailsView from "dashboard/views/contests/ContestDetailsView";
-import EditContestView from "dashboard/views/contests/EditContestView";
-import NewContestView from "dashboard/views/contests/NewContestView";
-import EvaluatorsView from "dashboard/views/evaluators/EvaluatorsView";
-import NewEvaluatorView from "dashboard/views/evaluators/NewEvaluatorView";
-import EditExerciseView from "dashboard/views/exercises/EditExerciseView";
-import ExerciseDetailsView from "dashboard/views/exercises/ExerciseDetailsView";
-import ExercisesView from "dashboard/views/exercises/ExercisesView";
-import NewExerciseView from "dashboard/views/exercises/NewExerciseView";
-import EditTeamMember from "dashboard/views/teams/EditTeamMember";
-import EditTeamView from "dashboard/views/teams/EditTeamView";
-import NewTeamMember from "dashboard/views/teams/NewTeamMember";
-import NewTeamView from "dashboard/views/teams/NewTeamView";
-import TeamDetailsView from "dashboard/views/teams/TeamDetailsView";
-import TeamsView from "dashboard/views/teams/TeamsView";
+import LoadingSpinner from "@/modules/app/components/LoadingSpinner";
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
-import ContestSummaryView from "summary/views/ContestSummaryView";
-import ExercisesSummaryView from "summary/views/ExercisesSummaryView";
-import TeamsSummaryView from "summary/views/TeamsSummaryView";
+
+const AuthLayout = lazy(() => import("@/layouts/AuthLayout"));
+const ContestSummaryLayout = lazy(() => import("@/layouts/ContestSummaryLayout"));
+const DashboardLayout = lazy(() => import("@/layouts/DashboardLayout"));
+const MainLayout = lazy(() => import("@/layouts/MainLayout"));
+const ProfileLayout = lazy(() => import("@/layouts/ProfileLayout"));
+const FavoritesView = lazy(() => import("app/views/FavoritesView"));
+const HomeView = lazy(() => import("app/views/HomeView"));
+const NotFoundView = lazy(() => import("app/views/NotFoundView"));
+const EmailVerificationNotificationView = lazy(() => import("auth/views/EmailVerificationNotificationView"));
+const ForgotPasswordView = lazy(() => import("auth/views/ForgotPasswordView"));
+const LoginView = lazy(() => import("auth/views/LoginView"));
+const RegisterView = lazy(() => import("auth/views/RegisterView"));
+const ResetPasswordView = lazy(() => import("auth/views/ResetPasswordView"));
+const DashboardView = lazy(() => import("dashboard/views/DashboardView"));
+const AssessmentTeamDetailsView = lazy(() => import("dashboard/views/assessment/AssesmentTeamDetailsView"));
+const AssessmentExerciseDetailsView = lazy(() => import("dashboard/views/assessment/AssessmentExerciseDetailsView"));
+const AssessmentTeamView = lazy(() => import("dashboard/views/assessment/AssessmentTeamView"));
+const AssessmentView = lazy(() => import("dashboard/views/assessment/AssessmentView"));
+const ContestDetailsView = lazy(() => import("dashboard/views/contests/ContestDetailsView"));
+const EditContestView = lazy(() => import("dashboard/views/contests/EditContestView"));
+const NewContestView = lazy(() => import("dashboard/views/contests/NewContestView"));
+const EvaluatorsView = lazy(() => import("dashboard/views/evaluators/EvaluatorsView"));
+const NewEvaluatorView = lazy(() => import("dashboard/views/evaluators/NewEvaluatorView"));
+const EditExerciseView = lazy(() => import("dashboard/views/exercises/EditExerciseView"));
+const ExerciseDetailsView = lazy(() => import("dashboard/views/exercises/ExerciseDetailsView"));
+const ExercisesView = lazy(() => import("dashboard/views/exercises/ExercisesView"));
+const NewExerciseView = lazy(() => import("dashboard/views/exercises/NewExerciseView"));
+const EditTeamMember = lazy(() => import("dashboard/views/teams/EditTeamMember"));
+const EditTeamView = lazy(() => import("dashboard/views/teams/EditTeamView"));
+const NewTeamMember = lazy(() => import("dashboard/views/teams/NewTeamMember"));
+const NewTeamView = lazy(() => import("dashboard/views/teams/NewTeamView"));
+const TeamDetailsView = lazy(() => import("dashboard/views/teams/TeamDetailsView"));
+const TeamsView = lazy(() => import("dashboard/views/teams/TeamsView"));
+const ChangePasswordView = lazy(() => import("profile/views/ChangePasswordView"));
+const EditProfileView = lazy(() => import("profile/views/EditProfileView"));
+const ContestSummaryView = lazy(() => import("summary/views/ContestSummaryView"));
+const ExercisesSummaryView = lazy(() => import("summary/views/ExercisesSummaryView"));
+const TeamsSummaryView = lazy(() => import("summary/views/TeamsSummaryView"));
 
 export default function Router() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route element={<AuthLayout />}>
-                    <Route element={<LoginView />} path="/login" />
-                    <Route element={<RegisterView />} path="/register" />
-                    <Route element={<ForgotPasswordView />} path="/forgot-password" />
-                    <Route element={<ResetPasswordView />} path="/reset-password" />
-                    <Route element={<EmailVerificationNotificationView />} path="/email/verification-notification" />
-                    <Route element={<VerifyEmailView />} path="verify-email/:id/:hash" />
+                <Route element={<Suspense fallback={<LoadingSpinner />}><AuthLayout /></Suspense>}>
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><LoginView /></Suspense>} path="/login" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><RegisterView /></Suspense>} path="/register" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><ForgotPasswordView /></Suspense>} path="/forgot-password" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><ResetPasswordView /></Suspense>} path="/reset-password" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><EmailVerificationNotificationView /></Suspense>} path="/email/verification-notification" />s
                 </Route>
 
-                <Route element={<MainLayout />}>
-                    <Route element={<HomeView />} path="/" />
-                    <Route element={<FavoritesView />} path="/favorites" />
+                <Route element={<Suspense fallback={<LoadingSpinner />}><MainLayout /></Suspense>}>
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><HomeView /></Suspense>} path="/" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><FavoritesView /></Suspense>} path="/favorites" />
 
-                    <Route element={<DashboardView />} path="/dashboard" />
-                    <Route element={<NewContestView />} path="/dashboard/contests/new" />
-                    <Route element={<EditContestView />} path="/dashboard/contests/:contestId/edit" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><DashboardView /></Suspense>} path="/dashboard" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><NewContestView /></Suspense>} path="/dashboard/contests/new" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><EditContestView /></Suspense>} path="/dashboard/contests/:contestId/edit" />
 
-                    <Route element={<ProfileLayout />} path="/profile">
-                        <Route element={<EditProfileView />} index />
-                        <Route element={<ChangePasswordView />} path="password" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><ProfileLayout /></Suspense>} path="/profile">
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><EditProfileView /></Suspense>} index />
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><ChangePasswordView /></Suspense>} path="password" />
                     </Route>
 
-                    <Route element={<ContestSummaryLayout />} path="/summary/contests/:contestId">
-                        <Route element={<ContestSummaryView />} index />
-                        <Route element={<ExercisesSummaryView />} path="exercises" />
-                        <Route element={<TeamsSummaryView />} path="teams" />
-                    </Route>
-                </Route>
-
-                <Route element={<DashboardLayout />} path="/dashboard/contests/:contestId">
-                    <Route element={<ContestDetailsView />} index />
-
-                    <Route element={<ExercisesView />} path="exercises">
-                        <Route element={<ExerciseDetailsView />} path=":exerciseId" />
-                    </Route>
-                    <Route element={<NewExerciseView />} path="exercises/new" />
-                    <Route element={<EditExerciseView />} path="exercises/:exerciseId/edit" />
-
-                    <Route element={<TeamsView />} path="teams" >
-                        <Route element={<TeamDetailsView />} path=":teamId" />
-                    </Route>
-                    <Route element={<NewTeamView />} path="teams/new" />
-                    <Route element={<EditTeamView />} path="teams/:teamId/edit">
-                        <Route element={<NewTeamMember />} path="members/new" />
-                        <Route element={<EditTeamMember />} path="members/:memberId/edit" />
-                    </Route>
-
-                    <Route element={<EvaluatorsView />} path="evaluators">
-                        <Route element={<NewEvaluatorView />} path="new" />
-                    </Route>
-
-                    <Route element={<AssessmentView />} path="assessment" >
-                        <Route element={<AssessmentTeamView />} path=":teamId" />
-                        <Route element={<AssessmentTeamDetailsView />} path="teams/:teamId/details" />
-                        <Route element={<AssessmentExerciseDetailsView />} path="exercises/:exerciseId/details" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><ContestSummaryLayout /></Suspense>} path="/summary/contests/:contestId">
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><ContestSummaryView /></Suspense>} index />
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><ExercisesSummaryView /></Suspense>} path="exercises" />
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><TeamsSummaryView /></Suspense>} path="teams" />
                     </Route>
                 </Route>
 
-                <Route element={<MainLayout />} >
-                    <Route element={<NotFoundView />} path="*" />
+                <Route element={<Suspense fallback={<LoadingSpinner />}><DashboardLayout /></Suspense>} path="/dashboard/contests/:contestId">
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><ContestDetailsView /></Suspense>} index />
+
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><ExercisesView /></Suspense>} path="exercises">
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><ExerciseDetailsView /></Suspense>} path=":exerciseId" />
+                    </Route>
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><NewExerciseView /></Suspense>} path="exercises/new" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><EditExerciseView /></Suspense>} path="exercises/:exerciseId/edit" />
+
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><TeamsView /></Suspense>} path="teams" >
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><TeamDetailsView /></Suspense>} path=":teamId" />
+                    </Route>
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><NewTeamView /></Suspense>} path="teams/new" />
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><EditTeamView /></Suspense>} path="teams/:teamId/edit">
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><NewTeamMember /></Suspense>} path="members/new" />
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><EditTeamMember /></Suspense>} path="members/:memberId/edit" />
+                    </Route>
+
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><EvaluatorsView /></Suspense>} path="evaluators">
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><NewEvaluatorView /></Suspense>} path="new" />
+                    </Route>
+
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><AssessmentView /></Suspense>} path="assessment" >
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><AssessmentTeamView /></Suspense>} path=":teamId" />
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><AssessmentTeamDetailsView /></Suspense>} path="teams/:teamId/details" />
+                        <Route element={<Suspense fallback={<LoadingSpinner />}><AssessmentExerciseDetailsView /></Suspense>} path="exercises/:exerciseId/details" />
+                    </Route>
+                </Route>
+
+                <Route element={<Suspense fallback={<LoadingSpinner />}><MainLayout /></Suspense>} >
+                    <Route element={<Suspense fallback={<LoadingSpinner />}><NotFoundView /></Suspense>} path="*" />
                 </Route>
             </Routes>
         </BrowserRouter>

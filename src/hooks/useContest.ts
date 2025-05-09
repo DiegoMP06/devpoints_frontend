@@ -42,6 +42,13 @@ export default function useContest() {
         [user, contest]
     );
 
+    const canEvaluate = useMemo(() => {
+        const startedAt = new Date(contest?.started_at || "").getTime();
+        const endedAt = new Date(contest?.ended_at || "").getTime();
+        const now = Date.now();
+        return startedAt <= now && endedAt >= now && !contest?.is_ended;
+    }, [contest]);
+
     return {
         contest,
         isContestLoading,
@@ -49,5 +56,6 @@ export default function useContest() {
         contestError: (contestError as unknown),
         isCreatorOfTheContest,
         isEvaluatorOfTheContest,
+        canEvaluate,
     };
 }

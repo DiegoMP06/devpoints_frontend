@@ -24,6 +24,8 @@ export default function EditContestForm({ contest }: EditContestFormProps) {
     const initialValues: ContestFormData = {
         name: contest.name,
         image: null,
+        started_at: contest.started_at,
+        ended_at: contest.ended_at,
     }
 
     const { mutate, isPending } = useMutation({

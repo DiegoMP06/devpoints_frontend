@@ -1,64 +1,14 @@
 import ContestSummaryProvider from "@/context/ContestSummaryProvider";
+import useApp from "@/hooks/useApp";
 import useContestSummary from "@/hooks/useContestSummary";
 import LoadingSpinner from "@/modules/app/components/LoadingSpinner";
-import { ChartBarIcon, ClipboardDocumentCheckIcon, HeartIcon as HeartSolidIcon, PaperClipIcon, UserGroupIcon } from "@heroicons/react/24/solid";
-import { HeartIcon as HeartOutlineIcon } from "@heroicons/react/24/outline";
+import LikeButton from "@/modules/summary/components/LikeButton";
+import { ChartBarIcon, ClipboardDocumentCheckIcon, PaperClipIcon, UserGroupIcon } from "@heroicons/react/24/solid";
 import { Link, Navigate, Outlet } from "react-router";
-import { useMutation } from "@tanstack/react-query";
-import FavoriteService from "@/services/FavoriteService";
-import { toast } from "react-toastify";
-import useApp from "@/hooks/useApp";
 
 function ContestSummaryProviderLayout() {
     const { user } = useApp();
-    const { contest, contestError, isContestLoading, canAssessment, mutateContest } = useContestSummary();
-
-    const addFavoriteMutation = useMutation({
-        mutationFn: FavoriteService.addFavoriteContest,
-        onSuccess: (data) => {
-            toast.success(data)
-        },
-        onError: (error) => {
-            toast.error(error.message)
-        },
-    });
-
-    const removeFavoriteMutation = useMutation({
-        mutationFn: FavoriteService.removeFavoriteContest,
-        onSuccess: (data) => {
-            toast.success(data)
-        },
-        onError: (error) => {
-            toast.error(error.message)
-        },
-    });
-
-    const handleFavorite = () => {
-        if (contest?.is_saved) {
-            removeFavoriteMutation.mutate({
-                favoriteId: contest.is_saved.pivot.id
-            })
-            mutateContest({
-                ...contest,
-                is_saved: null
-            });
-        } else {
-            addFavoriteMutation.mutate({
-                contestId: contest!.id,
-            })
-            mutateContest({
-                ...contest!,
-                is_saved: {
-                    id: user!.id,
-                    name: user!.name,
-                    email: user!.email,
-                    pivot: {
-                        id: 0,
-                    }
-                }
-            });
-        }
-    }
+    const { contest, contestError, isContestLoading, canAssessment } = useContestSummary();
 
     if (isContestLoading) return <LoadingSpinner />
     if (contestError) return <Navigate to="/404" />
@@ -81,14 +31,7 @@ function ContestSummaryProviderLayout() {
             </div>
 
             {user && (
-                <div className="mt-10 flex items-center justify-center">
-                    <button onClick={handleFavorite} type="button" className="text-red-700 hover:text-red-800 transition-colors cursor-pointer" title={contest.is_saved ? 'Quitar de favoritos' : 'Guardar en favoritos'}>
-                        {contest.is_saved ?
-                            <HeartSolidIcon className="size-8" /> :
-                            <HeartOutlineIcon className="size-8" />
-                        }
-                    </button>
-                </div>
+                <LikeButton />
             )}
 
             <nav className="hidden md:flex items-center mt-10 max-w-2xl w-full mx-auto">

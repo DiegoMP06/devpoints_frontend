@@ -19,6 +19,16 @@ export type ContestSummaryContextProps = {
     solvedTeamExercises: (teamId: Team["id"]) => number;
     totalScore: number;
     totalParticipants: number;
+    isPending: boolean;
+    isEnded: boolean;
+    isActive: boolean;
+    clasification: {
+        id: number;
+        name: string;
+        solved: number;
+        points: number;
+        last_assessment: string | undefined;
+    }[] | undefined
 }
 
 
@@ -102,6 +112,46 @@ export default function ContestSummaryProvider({ children }: PropsWithChildren) 
         [user, contest]
     );
 
+    const isPending = useMemo(() => {
+        const startedAtTime = new Date(contest?.started_at || '').getTime();
+        return startedAtTime >= Date.now();
+    }, [contest]);
+
+
+    const isActive = useMemo(() => {
+        const startedAtTime = new Date(contest?.started_at || '').getTime();
+        const endedAtTime = new Date(contest?.ended_at || '').getTime();
+        return startedAtTime < Date.now() && endedAtTime > Date.now();
+    }, [contest]);
+
+    const isEnded = useMemo(() => {
+        const endedAtTime = new Date(contest?.ended_at || '').getTime();
+        return endedAtTime <= Date.now();
+    }, [contest]);
+
+    const clasification = useMemo(() => {
+        const teamsData = contest?.teams.map((team) => ({
+            id: team.id,
+            name: team.name,
+            solved: solvedTeamExercises(team.id),
+            points: teamScore(team.id),
+            last_assessment: team.assessments.filter((assessment) => !assessment.deleted_at).at(-1)?.created_at,
+        }));
+
+        teamsData?.sort((a, b) => {
+            const assesmentA = a.last_assessment ? new Date(a.last_assessment).getTime() : 0;
+            const assesmentB = b.last_assessment ? new Date(b.last_assessment).getTime() : 0;
+
+            if (a.points < b.points) return 1;
+            if (a.points > b.points) return -1;
+            if (assesmentA < assesmentB) return -1;
+            if (assesmentA > assesmentB) return 1;
+            return 0;
+        })
+
+        return teamsData;
+    }, [contest, solvedTeamExercises, teamScore]);
+
     return (
         <ContestSummaryContext.Provider value={{
             contest,
@@ -114,6 +164,10 @@ export default function ContestSummaryProvider({ children }: PropsWithChildren) 
             solvedTeamExercises,
             totalScore,
             totalParticipants,
+            isPending,
+            isEnded,
+            isActive,
+            clasification,
         }}>
             {children}
         </ContestSummaryContext.Provider>

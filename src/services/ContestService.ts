@@ -7,6 +7,7 @@ import {
 import { ContestFormData, NotificationAPI } from "@/types";
 import { isAxiosError } from "axios";
 import { Contest } from "../types/index";
+import { formatForBackend } from "@/utils";
 
 type ContestServiceType = {
     data: ContestFormData;
@@ -34,6 +35,8 @@ export default {
     async createContest({ data }: Pick<ContestServiceType, "data">) {
         const FD = new FormData();
         FD.append("name", data.name);
+        FD.append("started_at", formatForBackend(data.started_at));
+        FD.append("ended_at", formatForBackend(data.ended_at));
         if (data.image) {
             FD.append("image", data.image[0]);
         }
@@ -94,6 +97,8 @@ export default {
     async editContest({ data, id }: Pick<ContestServiceType, "data" | "id">) {
         const FD = new FormData();
         FD.append("name", data.name);
+        FD.append("started_at", formatForBackend(data.started_at));
+        FD.append("ended_at", formatForBackend(data.ended_at));
         if (data.image) {
             FD.append("image", data.image[0]);
         }

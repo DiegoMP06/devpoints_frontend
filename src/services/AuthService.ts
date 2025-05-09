@@ -66,31 +66,6 @@ export default {
             }
         }
     },
-    async verifyEmail({
-        expires,
-        signature,
-        hash,
-        id,
-    }: {
-        expires: string;
-        signature: string;
-        hash: string;
-        id: string;
-    }) {
-        try {
-            const { data } = await api.get<NotificationAPI>(
-                `/verify-email/${id}/${hash}?expires=${expires}&signature=${signature}`,
-                { baseURL }
-            );
-            return data.message;
-        } catch (error) {
-            if (isAxiosError(error) && error.response) {
-                throw new Error(error.response.data.message);
-            } else if (error instanceof Error) {
-                throw new Error(error.message);
-            }
-        }
-    },
     async logout() {
         try {
             await api.post("/logout", null, {
@@ -98,7 +73,7 @@ export default {
             });
 
             localStorage.removeItem("AUTH_TOKEN");
-
+            
             return null;
         } catch (error) {
             if (isAxiosError(error) && error.response) {

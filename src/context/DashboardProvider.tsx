@@ -1,15 +1,16 @@
 import useContest from "@/hooks/useContest"
-import { Contest } from "@/types"
+import { ContestDetails } from "@/types"
 import { PropsWithChildren, createContext } from "react"
 import { KeyedMutator } from "swr"
 
 export type DashboardContextProps = {
-    contest: Contest | undefined;
+    contest: ContestDetails['data'][0] | undefined;
     isContestLoading: boolean;
-    mutateContest: KeyedMutator<Contest | undefined>;
+    mutateContest: KeyedMutator<ContestDetails['data'][0] | undefined>;
     isCreatorOfTheContest: boolean;
     isEvaluatorOfTheContest: boolean;
     contestError: unknown;
+    canEvaluate: boolean;
 }
 
 export const DashboardContext = createContext<DashboardContextProps>(null!)
@@ -22,6 +23,7 @@ export default function DashboardProvider({ children }: PropsWithChildren) {
         isCreatorOfTheContest,
         isEvaluatorOfTheContest,
         contestError,
+        canEvaluate,
     } = useContest();
 
     return (
@@ -32,6 +34,7 @@ export default function DashboardProvider({ children }: PropsWithChildren) {
             isCreatorOfTheContest,
             isEvaluatorOfTheContest,
             contestError,
+            canEvaluate,
         }}>
             {children}
         </DashboardContext.Provider>

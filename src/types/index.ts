@@ -2,6 +2,8 @@ import {
     AddEvaluatorFormDataSchema,
     AssessmentSchema,
     AuthSchema,
+    CheckFavoriteContestSchema,
+    ContestDetailsSchema,
     ContestSchema,
     ContestsSchema,
     EditContestSchema,
@@ -46,9 +48,13 @@ export type Contest = z.infer<typeof ContestSchema>;
 export type Contests = z.infer<typeof ContestsSchema>;
 export type HomeContests = z.infer<typeof HomeContestsSchema>;
 export type EditContest = z.infer<typeof EditContestSchema>;
-export type ContestFormData = Pick<Contest, "name"> & {
+export type ContestFormData = Pick<
+    Contest,
+    "name" | "started_at" | "ended_at"
+> & {
     image: FileList | null;
 };
+export type ContestDetails = z.infer<typeof ContestDetailsSchema>;
 
 export type Exercise = z.infer<typeof ExerciseSchema>;
 export type Exercises = z.infer<typeof ExercisesSchema>;
@@ -90,3 +96,5 @@ export type Pagination = z.infer<typeof PaginationSchema>;
 export type NotificationAPI = {
     message: string;
 };
+
+export type CheckFavoriteContest = z.infer<typeof CheckFavoriteContestSchema>;

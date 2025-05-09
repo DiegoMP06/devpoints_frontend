@@ -18,6 +18,8 @@ export default function NewContestView() {
     const initialValues: ContestFormData = {
         name: '',
         image: null,
+        started_at: '',
+        ended_at: '',
     }
 
     const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues });

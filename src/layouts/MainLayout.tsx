@@ -1,5 +1,4 @@
 import useApp from "@/hooks/useApp";
-import LoadingSpinner from "@/modules/app/components/LoadingSpinner";
 import MenuMobileLinks from "@/modules/app/components/MenuMobileLinks";
 import Header from "app/components/Header";
 import { useEffect } from "react";
@@ -28,8 +27,6 @@ export default function MainLayout() {
             navigate('/email/verification-notification');
         }
     }, [user, isAuthLoading]);
-
-    if (isAuthLoading) return <LoadingSpinner />
 
     return (
         <>

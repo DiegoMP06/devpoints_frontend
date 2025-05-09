@@ -1,5 +1,5 @@
 import { api } from "@/lib/axios";
-import { FavoriteContestsSchema } from "@/schemas";
+import { CheckFavoriteContestSchema, FavoriteContestsSchema } from "@/schemas";
 import { Contest, NotificationAPI } from "@/types";
 import { isAxiosError } from "axios";
 
@@ -36,6 +36,29 @@ export default {
                 }
             );
             return response.message;
+        } catch (error) {
+            if (isAxiosError(error) && error.response) {
+                throw new Error(error.response.data.message);
+            } else if (error instanceof Error) {
+                throw new Error(error.message);
+            }
+        }
+    },
+    async checkFavoriteContest({
+        contestId,
+    }: Pick<FavoriteServiceType, "contestId">) {
+        try {
+            const { data } = await api.get(
+                `/contests/${contestId}/favorites`
+            );
+
+            const response = CheckFavoriteContestSchema.safeParse(data);
+
+            if(!response.success) {
+                throw new Error(response.error.message);
+            }
+
+            return response.data.data[0] || null;
         } catch (error) {
             if (isAxiosError(error) && error.response) {
                 throw new Error(error.response.data.message);

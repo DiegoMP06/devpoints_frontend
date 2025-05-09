@@ -1,6 +1,6 @@
 import type { ContestFormData } from "@/types";
-import InputContainer from "../../../app/components/InputContainer";
-import LabelInput from "../../../app/components/LabelInput";
+import InputContainer from "app/components/InputContainer";
+import LabelInput from "app/components/LabelInput";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import ErrorMessage from "@/modules/app/components/ErrorMessage";
 
@@ -35,6 +35,40 @@ export default function ContestForm({ register, errors, image }: ContestFormProp
                 />
 
                 {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+            </InputContainer>
+
+            <InputContainer>
+                <LabelInput htmlFor="name">
+                    Inicio de la Competencia:
+                </LabelInput>
+
+                <input
+                    type="datetime-local"
+                    id="started_at"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
+                    {...register("started_at", {
+                        required: "La fecha es requerida",
+                    })}
+                />
+
+                {errors.started_at && <ErrorMessage>{errors.started_at.message}</ErrorMessage>}
+            </InputContainer>
+
+            <InputContainer>
+                <LabelInput htmlFor="name">
+                    Fin de la Competencia:
+                </LabelInput>
+
+                <input
+                    type="datetime-local"
+                    id="ended_at"
+                    className="border border-gray-300 w-full px-4 py-2 placeholder-gray-400"
+                    {...register("ended_at", {
+                        required: "La fecha es requerida",
+                    })}
+                />
+
+                {errors.ended_at && <ErrorMessage>{errors.ended_at.message}</ErrorMessage>}
             </InputContainer>
 
             {image &&

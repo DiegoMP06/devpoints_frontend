@@ -1,4 +1,5 @@
 import useContestSummary from "@/hooks/useContestSummary";
+import { formatDate } from "@/utils";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from 'chart.js/auto';
 import { Bar } from 'react-chartjs-2';
@@ -11,6 +12,7 @@ export default function ContestSummaryView() {
         solvedTeamExercises,
         totalScore,
         totalParticipants,
+        clasification,
     } = useContestSummary();
 
     ChartJS.register(
@@ -91,6 +93,10 @@ export default function ContestSummaryView() {
                             </div>
                         </div>
                         <div className="block mt-10">
+                            <h2 className="text-2xl font-bold text-gray-600 mb-4">
+                                Equipos:
+                            </h2>
+
                             <table className="w-full border-collapse">
                                 <thead className="bg-gray-600">
                                     <tr>
@@ -127,7 +133,7 @@ export default function ContestSummaryView() {
                                     ))}
                                 </tbody>
                                 <tfoot>
-                                    <tr className="">
+                                    <tr>
                                         <td className="px-4 py-2 text-gray-600 bg-gray-100 text-center font-bold">
                                             Total:
                                         </td>
@@ -142,6 +148,55 @@ export default function ContestSummaryView() {
                                         </td>
                                     </tr>
                                 </tfoot>
+                            </table>
+                        </div>
+
+                        <div className="block mt-10">
+                            <h2 className="text-2xl font-bold text-gray-600 mb-4">
+                                Clasificación:
+                            </h2>
+
+                            <table className="w-full border-collapse">
+                                <thead className="bg-gray-600">
+                                    <tr>
+                                        <th className="px-4 py-2 text-white">
+                                            Lugar
+                                        </th>
+                                        <th className="px-4 py-2 text-white">
+                                            Equipo
+                                        </th>
+                                        <th className="px-4 py-2 text-white">
+                                            Ejercicios Resueltos
+                                        </th>
+                                        <th className="px-4 py-2 text-white">
+                                            Puntaje
+                                        </th>
+                                        <th className="px-4 py-2 text-white">
+                                            Ultima Actualización
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {clasification?.map((team, i) => (
+                                        <tr key={team.id} className="border-b border-white">
+                                            <td className="px-4 py-2 text-center text-gray-600 bg-gray-100">
+                                                {i + 1}
+                                            </td>
+                                            <td className="px-4 py-2 text-center text-gray-600 bg-gray-100">
+                                                {team.name}
+                                            </td>
+                                            <td className="px-4 py-2 text-center text-gray-600 bg-gray-100">
+                                                {team.solved}
+                                            </td>
+                                            <td className="px-4 py-2 text-center text-gray-600 bg-gray-100">
+                                                {team.points}
+                                            </td>
+                                            <td className="px-4 py-2 text-center text-gray-600 bg-gray-100">
+                                                {team.last_assessment ? formatDate(team.last_assessment) : 'No evaluado'}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -186,6 +241,13 @@ export default function ContestSummaryView() {
                             No Hay evaluadores asignados
                         </p>
                     )}
+
+                    <p className="mt-6 text-sm font-bold text-gray-500">
+                        Inicia el {formatDate(contest.started_at)}
+                    </p>
+                    <p className="mt-1 text-sm font-bold text-gray-500">
+                        Termina el {formatDate(contest.ended_at)}
+                    </p>
                 </aside>
             </div>
         </>

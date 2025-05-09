@@ -33,7 +33,7 @@ export const UserSchema = z.object({
     id: z.number(),
     name: z.string(),
     email: z.string().email(),
-    email_verified_at: z.string().nullable(),
+    email_verified_at: z.string().nullable().optional(),
     created_at: z.string(),
     updated_at: z.string(),
 });
@@ -198,17 +198,20 @@ export const ContestSchema = z.object({
     image: z.string(),
     is_published: z.number().int().min(0).max(1),
     user_id: UserSchema.shape.id,
+    started_at: z.string(),
+    ended_at: z.string(),
+    is_ended: z.number().int().min(0).max(1),
     created_at: z.string(),
     updated_at: z.string(),
     teams: z.array(TeamSchema),
     exercises: z.array(ExerciseSchema),
     evaluators: z.array(EvaluatorSchema),
     user: UserSchema.pick({ id: true, name: true, email: true }),
-    is_saved: UserSchema.pick({ id: true, name: true, email: true })
-        .extend({
-            pivot: z.object({ id: z.number() }),
-        })
-        .nullable(),
+    // is_saved: UserSchema.pick({ id: true, name: true, email: true })
+    //     .extend({
+    //         pivot: z.object({ id: z.number() }),
+    //     })
+    //     .nullable(),
 });
 
 export const ContestDetailsSchema = z.object({
@@ -223,6 +226,9 @@ export const ContestDetailsSchema = z.object({
             teams: true,
             exercises: true,
             evaluators: true,
+            started_at: true,
+            ended_at: true,
+            is_ended: true,
             updated_at: true,
             created_at: true,
         })
@@ -242,9 +248,20 @@ export const FavoriteContestsSchema = z.object({
             is_published: true,
             user_id: true,
             user: true,
+            started_at: true,
+            ended_at: true,
+            is_ended: true,
             updated_at: true,
             created_at: true,
         }).extend({
+            pivot: z.object({ id: z.number() }),
+        })
+    ),
+});
+
+export const CheckFavoriteContestSchema = z.object({
+    data: z.array(
+        z.object({
             pivot: z.object({ id: z.number() }),
         })
     ),
@@ -256,6 +273,8 @@ export const EditContestSchema = z.object({
             id: true,
             name: true,
             image: true,
+            started_at: true,
+            ended_at: true,
         })
     ),
 });
@@ -268,6 +287,9 @@ export const ContestsSchema = z.object({
             image: true,
             is_published: true,
             user_id: true,
+            started_at: true,
+            ended_at: true,
+            is_ended: true,
         })
     ),
     meta: PaginationSchema,
@@ -281,6 +303,8 @@ export const HomeContestsSchema = z.object({
             image: true,
             is_published: true,
             user_id: true,
+            started_at: true,
+            ended_at: true,
             user: true,
         })
     ),
